@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <br />
+    <hr />
+    <h1>JavaScript Refresher</h1>
+    <script>
+      // // var , let , const
+
+      // //var
+      //        var a = 10;// declaration + initialization
+      // console.log("a = "+a);
+
+      // var a = 20; // re-declare is allowed in var
+      // console.log("a = "+a);
+
+      // a = "hello"; // re-assign allowed in var
+      // console.log("a = "+a);
+  
+       //let
+
+      // let b = 20;
+      // console.log("b = "+b);
+
+      // //let b = 30;  // re-declare is not allowed in let
+
+      // b = 'Bye'; // re initialization is allowed in let
+      // console.log("b = "+b);
+
+      // // const
+      // const c = 30;
+      // console.log("c =", c);
+
+      // //const c = 40;  // re-declare is not allowed in const
+
+      // //c = 'ABC';// re initialization is allowed in let
+      // console.log("Hello");
+
+      // function
+      // general - normal - simple - named function
+
+      // function show (){
+      // console.log("In Show function");
+      // console.log("hello")
+      // }
+
+      // show();
+
+      // function add(num1, num2){
+      //   console.log(num1+num2)
+      // }
+      // add(2,8)
+
+      // function sub(num1, num2){
+      //   return num1-num2;
+      // }
+      // let s = sub(2,8)
+      // console.log(s)
+      // console.log(sub(3,7))
+
+      // function mul (){
+      //     let a=20, b = 5,c=4
+      //     return a*b;
+      // }
+      // console.log(mul())
+
+      // function expression
+      // function print(){
+      //     console.log("Print")
+      // }
+      // print()
+
+      // const show = function(str){
+      //     console.log("Show")
+      // };
+      // // show = 10;
+      // show()
+
+      // let a = 10;
+      // console.log(a)
+      // console.log(show)
+      // document.write(print);
+
+      // Arrow function
+      // function show(){        // named function
+      //     console.log('show')
+      // }
+      // show();
+
+      // let display = function(){   // function expression
+      //     console.log('display')
+      // }
+      // display();
+
+      // let print = () => {   // arrow function
+      //     console.log('print')
+      // }
+      // print();
+
+      //       let print = () => console.log("print");
+      //       print();
+
+      //       let add = (a,b) => a+b;
+      //       console.log(add(5,9));
+
+      //        let mul = (num1,num2)=> num1*num2;
+      //        console.log(mul(4,89));
+
+      //    let square = num => num*num;
+      //        console.log(square(7))
+
+      // Array
+      // let ar = [10,20,30,40,50]
+      // console.log(ar)
+
+      // let emp = [102, "Amit Sharma", 1200.5, "S.E.", "XYZ"];
+      // console.log(emp)
+
+      // for(let i=0; i<ar.length; i++)
+      // console.log(ar[i]);
+
+      // for(let i in emp)
+      // console.log(i + ' : ' + emp[i])
+
+      // for(let i of ar)
+      // console.log(i)
+
+      // spread operator    ...
+      //   let ar = [10, 20, 30, 40, 50, 60];
+
+      //   // let ar1 = ar;
+      //   // ar1[3] = 100;
+      //   // console.log(ar)
+
+      //   let ar2 = [...ar]; // [ar[0], ar[1], ar[2], ar[3], ar[4], ar[5]]
+      //   ar2[2] = 50;
+      //   console.log(ar);
+
+      //   console.log(Math.max(4, 7, 3));
+      //   console.log(Math.max(...ar)); //(ar[0], ar[1], ar[2], ar[3], ar[4], ar[5]) // (10,20,30,40,50,60)
+
+      //   let arr1 = [1, 2, 3, 4];
+      //   let arr2 = [5, 6, 7, 8];
+      //   let arr3 = [10, ...arr1, 11, ...arr2, 12];
+      //   console.log(arr3);
+
+      // rest parameter ...
+
+      //   function add(a, b, ...ar){
+      //    console.log('Data:')
+      //    console.log('a=', a, ' b=', b);
+      //    for(let i of ar)
+      //    console.log(i)
+      //   }
+      //   add();
+      //   add(3);
+      //   add(4,6,8);
+      //   add(5,4,21,8,6,5);
+      //   add(4,8);
+
+      //   let x
+      //   console.log('x='+x)
+
+      // string
+      //     let s = 'father"s Name';
+      //     let s1 = "father's Name";
+      //     console.log(s)
+      //     console.log(s1)
+      //     name = "ravi"
+      //     console.log('Name = '+name)
+      // console.log(`father'name   mother"name " ' ' ' " name = ${name} `)
+
+      // Array function
+      // forEach
+      const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+      console.log(arr);
+
+      //   let show = function (num) {
+      //     console.log(num);
+      //   };
+      //   console.log("Data 1");
+      //   arr.forEach(show);
+      //   console.log("Data 2");
+
+      //   arr.forEach(function (n) {
+      //     console.log(n);
+      //   });
+//map
+let square_arr =arr.map(num => num * num);
+      console.log(square_arr)
+
+// filter
+let ev = (num)=>{
+    if(num%2==0)
+    return num;
+}
+let arr_even = arr.filter(ev);
+console.log(arr_even)
+
+let ev1 = num=>num%2==0;
+
+let arr_even1 = arr.filter(num=>num%2==0);
+console.log(arr_even1)
+    </script>
+  </body>
+</html>
