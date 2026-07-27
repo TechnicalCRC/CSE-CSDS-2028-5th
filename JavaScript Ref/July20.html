@@ -19,8 +19,8 @@
 
       // a = "hello"; // re-assign allowed in var
       // console.log("a = "+a);
-  
-       //let
+
+      //let
 
       // let b = 20;
       // console.log("b = "+b);
@@ -175,8 +175,8 @@
 
       // Array function
       // forEach
-      const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-      console.log(arr);
+      // const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+      // console.log(arr);
 
       //   let show = function (num) {
       //     console.log(num);
@@ -188,22 +188,72 @@
       //   arr.forEach(function (n) {
       //     console.log(n);
       //   });
-//map
-let square_arr =arr.map(num => num * num);
-      console.log(square_arr)
+      //map
+      // let square_arr = arr.map((num) => num * num);
+      // console.log(square_arr);
 
-// filter
-let ev = (num)=>{
-    if(num%2==0)
-    return num;
-}
-let arr_even = arr.filter(ev);
-console.log(arr_even)
+      // filter
+      // let ev = (num) => {
+      //   if (num % 2 == 0) return num;
+      // };
+      // let arr_even = arr.filter(ev);
+      // console.log(arr_even);
 
-let ev1 = num=>num%2==0;
+      // let ev1 = (num) => num % 2 == 0;
+      // console.log("New filtered data:");
+      // let arr_even1 = arr.filter(num => num % 2 == 0);
+      // console.log(arr_even1);
 
-let arr_even1 = arr.filter(num=>num%2==0);
-console.log(arr_even1)
+      // let arr_odd = arr.filter(num => num % 2 != 0);
+      // console.log(arr_odd);
+
+      // let sum_arr = arr.reduce((accumulator, currentVal)=> accumulator + currentVal, 20);
+
+      // console.log("Sum = " + sum_arr)
+
+      // Destructuring
+      // Array Des
+
+      //  let cars = ['Tata', 'Maruti', 'Suzuki', 'BMW', 'Nissan', 'Ford'];
+      //  console.log(cars)
+
+      //  console.log(cars[2]);
+      //  let [ , car1,  , car2, car6] = cars;   // Array Dest
+
+      //  console.log(car1)
+      //  console.log(car2)
+
+      // Object Dest
+      //       let student = {
+      //         name: "Kartiky",
+      //         age: 20,
+      //         branch: "CSE",
+      //         college: "ABESIT",
+      //       };
+
+      //       console.log(student);
+      //       console.log(student.age);
+      //       console.log(student.branch);
+      //       console.log(student["name"]);
+      //      console.log(student["college"]);
+
+      // console.log('after dest:')
+
+      // let {college ,age, branch, name} = student;  // Object Dest
+      //      console.log(age)
+      //      console.log(branch)
+      //      console.log(name)
+      //      console.log(college);
+
+      let myPromise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve("Data Received.."), 3000);
+      });
+
+      myPromise
+        .then((data) => console.log(data))
+        .catch((err) => console.log("Error fetched..."));
+
+      console.log("New Task Assigned....")  
     </script>
   </body>
 </html>
