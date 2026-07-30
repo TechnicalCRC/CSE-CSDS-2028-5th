@@ -1,0 +1,86 @@
+Microsoft Windows [Version 10.0.26200.8875]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\dell>mongosh
+Current Mongosh Log ID: 6a69a5eb3a9b1c7afa7a4cbf
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.3.7
+Using Mongosh:          2.9.2
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-07-29T10:30:23.701+05:30: Access control is not enabled for thedatabase. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+test> show dbs;
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+test> use CSE&DS
+switched to db CSE&DS
+CSE&DS> show dbs;
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+CSE&DS>
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+CSE&DS>
+
+C:\Users\dell>mongosh
+Current Mongosh Log ID: 6a69a9286abda3e625db8bfc
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.3.7
+Using Mongosh:          2.9.2
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-07-29T10:30:23.701+05:30: Access control is not enabled for thedatabase. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs;
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+test> use CSE&DS
+switched to db CSE&DS
+CSE&DS> use CSE&DS
+already on db CSE&DS
+CSE&DS> show dbs;
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+CSE&DS> db.dropDatabase();
+{ ok: 1, dropped: 'CSE&DS' }
+CSE&DS> use CSE&DS
+already on db CSE&DS
+CSE&DS> show collections
+
+CSE&DS> db.student.insert({name:"Harshil", age:20, branch:'CSE'})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6a69ab026abda3e625db8bfd') }
+}
+CSE&DS> show dbs;
+CSE&DS   40.00 KiB
+admin    40.00 KiB
+config  100.00 KiB
+local    40.00 KiB
+CSE&DS> show collections
+student
+CSE&DS> show collections
+student
+CSE&DS> db.createCollection("Book");
+{ ok: 1 }
+CSE&DS> show collections
+Book
+student
+CSE&DS>
