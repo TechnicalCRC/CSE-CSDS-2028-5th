@@ -1,0 +1,521 @@
+Microsoft Windows [Version 10.0.26200.8875]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\dell>mongosh
+Current Mongosh Log ID: 6a703317d0d3e639bd7d466b
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.3.7
+Using Mongosh:          2.9.2
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-07-29T10:30:23.701+05:30: Access control is not enabledfor the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+AI&IT   40.00 KiB
+CSE&DS  48.00 KiB
+admin   40.00 KiB
+config  36.00 KiB
+local   40.00 KiB
+test> use CSE&DS;
+switched to db CSE&DS
+CSE&DS> show collections;
+Book
+student
+CSE&DS> db.Book.find();
+
+CSE&DS> show collections;
+Book
+student
+CSE&DS> db.createCollection("Course");
+{ ok: 1 }
+CSE&DS> show collections;
+Book
+Course
+student
+CSE&DS> db.Course.drop()
+true
+CSE&DS> show collections;
+Book
+student
+CSE&DS> db.Book.drop();
+true
+CSE&DS> show collections;
+student
+CSE&DS> show collections;
+student
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  }
+]
+CSE&DS> db.student.findOne();
+{
+  _id: ObjectId('6a69ab026abda3e625db8bfd'),
+  name: 'Harshil',
+  age: 20,
+  branch: 'CSE'
+}
+CSE&DS> show collections;
+student
+CSE&DS> db.student.insert({
+| name: "Kashish",
+| age:20,
+| branch: "CSE"
+| }
+| )
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6a7038bdd0d3e639bd7d466c') }
+}
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  }
+]
+CSE&DS> db.student.insert([
+| {
+| name: "Ashutosh",
+| branch: "DS"
+| },
+| {
+| age: 21,
+| branch: "CSE"
+| },
+| {
+| name: "Ashitabh",
+| age: 21,
+| branch: "DS",
+| city: "Varanasi"
+| },
+| {
+| branch: "AI",
+| city: "Delhi",
+| age: 34
+| }])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a703b8dd0d3e639bd7d466d'),
+    '1': ObjectId('6a703b8dd0d3e639bd7d466e'),
+    '2': ObjectId('6a703b8dd0d3e639bd7d466f'),
+    '3': ObjectId('6a703b8dd0d3e639bd7d4670')
+  }
+}
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  }
+]
+CSE&DS> db.student.insertOne({name:"Pooja", age:20, branch: "AI", city: 'Ghaziabad'}
+|
+| )
+{
+  acknowledged: true,
+  insertedId: ObjectId('6a703d82d0d3e639bd7d4671')
+}
+CSE&DS> db.student.findOne()
+{
+  _id: ObjectId('6a69ab026abda3e625db8bfd'),
+  name: 'Harshil',
+  age: 20,
+  branch: 'CSE'
+}
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  }
+]
+CSE&DS> let a = {name:"Neha",
+| age: 21,
+| branch: "IoT"}
+
+CSE&DS> db.student.insertOne(a);
+{
+  acknowledged: true,
+  insertedId: ObjectId('6a703eead0d3e639bd7d4672')
+}
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  },
+  {
+    _id: ObjectId('6a703eead0d3e639bd7d4672'),
+    name: 'Neha',
+    age: 21,
+    branch: 'IoT'
+  }
+]
+CSE&DS> let a = { name: "Neha", age: 21, branch: "IoT" }
+
+CSE&DS> let b = { name: "Insha", age: 20, branch: "IT" }
+
+CSE&DS> let b = { _id: 21, name: "Insha", age: 20, branch: "IT"}
+
+CSE&DS> db.student.insertOne(b);
+{ acknowledged: true, insertedId: 21 }
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  },
+  {
+    _id: ObjectId('6a703eead0d3e639bd7d4672'),
+    name: 'Neha',
+    age: 21,
+    branch: 'IoT'
+  },
+  { _id: 21, name: 'Insha', age: 20, branch: 'IT' }
+]
+CSE&DS> let ar = [{name:'Krishna', age: 20, branch: "CSE"},
+| {name: 'Krishna', city: "Ghaziabad"}]
+
+CSE&DS> db.student.insertMany(ar);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a704306d0d3e639bd7d4673'),
+    '1': ObjectId('6a704306d0d3e639bd7d4674')
+  }
+}
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  },
+  {
+    _id: ObjectId('6a703eead0d3e639bd7d4672'),
+    name: 'Neha',
+    age: 21,
+    branch: 'IoT'
+  },
+  { _id: 21, name: 'Insha', age: 20, branch: 'IT' },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4673'),
+    name: 'Krishna',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4674'),
+    name: 'Krishna',
+    city: 'Ghaziabad'
+  }
+]
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  },
+  {
+    _id: ObjectId('6a703eead0d3e639bd7d4672'),
+    name: 'Neha',
+    age: 21,
+    branch: 'IoT'
+  },
+  { _id: 21, name: 'Insha', age: 20, branch: 'IT' },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4673'),
+    name: 'Krishna',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4674'),
+    name: 'Krishna',
+    city: 'Ghaziabad'
+  }
+]
+CSE&DS> db.student.find().pretty()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS'
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 21, branch:'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 21,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  },
+  {
+    _id: ObjectId('6a703eead0d3e639bd7d4672'),
+    name: 'Neha',
+    age: 21,
+    branch: 'IoT'
+  },
+  { _id: 21, name: 'Insha', age: 20, branch: 'IT' },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4673'),
+    name: 'Krishna',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4674'),
+    name: 'Krishna',
+    city: 'Ghaziabad'
+  }
+]
+CSE&DS> db.student.findOne().pretty()
+TypeError: db.student.findOne().pretty is not a function
+CSE&DS> db.student.findOne()
+{
+  _id: ObjectId('6a69ab026abda3e625db8bfd'),
+  name: 'Harshil',
+  age: 20,
+  branch: 'CSE'
+}
+CSE&DS>
