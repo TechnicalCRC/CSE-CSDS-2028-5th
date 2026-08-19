@@ -1,0 +1,823 @@
+Microsoft Windows [Version 10.0.26200.9168]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\dell>mongosh
+Current Mongosh Log ID: 6a8549206afc187a282937f1
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.3.7
+Using Mongosh:          2.9.2
+mongosh 2.10.0 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-08-13T18:17:34.641+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+AI&IT   144.00 KiB
+CSE&DS  136.00 KiB
+admin    40.00 KiB
+config   36.00 KiB
+local    68.00 KiB
+test> use CSE&DS
+switched to db CSE&DS
+CSE&DS> show collections
+course
+product
+student
+CSE&DS> db.student.find({}, {_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { age: 31, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { branch: 'AI', city: 'Delhi', age: 34 },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' }
+]
+CSE&DS> db.student.find({}, {_id:0}).sort({age})
+ReferenceError: age is not defined
+CSE&DS> db.student.find({}, {_id:0}).sort({'age':1})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { age: 31, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { branch: 'AI', city: 'Delhi', age: 34 }
+]
+CSE&DS> db.student.find({}, {_id:0, age:1}).sort({'age':1})
+[
+  { age: 20 }, { age: 20 },
+  { age: 20 }, { age: 20 },
+  { age: 20 }, { age: 20 },
+  { age: 22 }, { age: 31 },
+  { age: 31 }, { age: 31 },
+  { age: 34 }
+]
+CSE&DS> db.student.find({}, {_id:1, age:1}).sort({'age':1})
+[
+  { _id: ObjectId('6a69ab026abda3e625db8bfd'), age: 20 },
+  { _id: ObjectId('6a7038bdd0d3e639bd7d466c'), age: 20 },
+  { _id: ObjectId('6a703d82d0d3e639bd7d4671'), age: 20 },
+  { _id: 21, age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4673'), age: 20 },
+  { _id: ObjectId('6a7c16b775693a59334a74a0'), age: 20 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466d'), age: 22 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 31 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466f'), age: 31 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4674'), age: 31 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d4670'), age: 34 }
+]
+CSE&DS> db.student.find({}, {_id:1, age:1}).sort({'name':1})
+[
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 31 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d4670'), age: 34 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466f'), age: 31 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466d'), age: 22 },
+  { _id: ObjectId('6a69ab026abda3e625db8bfd'), age: 20 },
+  { _id: 21, age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4674'), age: 31 },
+  { _id: ObjectId('6a7038bdd0d3e639bd7d466c'), age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4673'), age: 20 },
+  { _id: ObjectId('6a7c16b775693a59334a74a0'), age: 20 },
+  { _id: ObjectId('6a703d82d0d3e639bd7d4671'), age: 20 }
+]
+CSE&DS> db.student.find({}, {_id:1, name:1, age:1}).sort({'name':1})
+[
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 31 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d4670'), age: 34 },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 31
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    age: 22
+  },
+  { _id: ObjectId('6a69ab026abda3e625db8bfd'), name: 'Harshil', age: 20 },
+  { _id: 21, name: 'Insha', age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4674'), name: 'Kanha', age: 31 },
+  { _id: ObjectId('6a7038bdd0d3e639bd7d466c'), name: 'Kashish', age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4673'), name: 'Krishna', age: 20 },
+  {
+    _id: ObjectId('6a7c16b775693a59334a74a0'),
+    name: 'Narayan Gaur',
+    age: 20
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja Kumari',
+    age: 20
+  }
+]
+CSE&DS> db.student.find({}, {name:1, age:1}).sort({'name':1})
+[
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 31 },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d4670'), age: 34 },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 31
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    age: 22
+  },
+  { _id: ObjectId('6a69ab026abda3e625db8bfd'), name: 'Harshil', age: 20 },
+  { _id: 21, name: 'Insha', age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4674'), name: 'Kanha', age: 31 },
+  { _id: ObjectId('6a7038bdd0d3e639bd7d466c'), name: 'Kashish', age: 20 },
+  { _id: ObjectId('6a704306d0d3e639bd7d4673'), name: 'Krishna', age: 20 },
+  {
+    _id: ObjectId('6a7c16b775693a59334a74a0'),
+    name: 'Narayan Gaur',
+    age: 20
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja Kumari',
+    age: 20
+  }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({'name':1})
+[
+  { age: 31 },
+  { age: 34 },
+  { name: 'Ashitabh', age: 31 },
+  { name: 'Ashutosh', age: 22 },
+  { name: 'Harshil', age: 20 },
+  { name: 'Insha', age: 20 },
+  { name: 'Kanha', age: 31 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Pooja Kumari', age: 20 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({'name':-1})
+[
+  { name: 'Pooja Kumari', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Kanha', age: 31 },
+  { name: 'Insha', age: 20 },
+  { name: 'Harshil', age: 20 },
+  { name: 'Ashutosh', age: 22 },
+  { name: 'Ashitabh', age: 31 },
+  { age: 31 },
+  { age: 34 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({'name':-1, 'age':-1})
+[
+  { name: 'Pooja Kumari', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Kanha', age: 31 },
+  { name: 'Insha', age: 20 },
+  { name: 'Harshil', age: 20 },
+  { name: 'Ashutosh', age: 22 },
+  { name: 'Ashitabh', age: 31 },
+  { age: 34 },
+  { age: 31 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({'name':-1, 'age':1})
+[
+  { name: 'Pooja Kumari', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Kanha', age: 31 },
+  { name: 'Insha', age: 20 },
+  { name: 'Harshil', age: 20 },
+  { name: 'Ashutosh', age: 22 },
+  { name: 'Ashitabh', age: 31 },
+  { age: 31 },
+  { age: 34 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({'age':1})
+[
+  { name: 'Harshil', age: 20 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Pooja Kumari', age: 20 },
+  { name: 'Insha', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Ashutosh', age: 22 },
+  { age: 31 },
+  { name: 'Ashitabh', age: 31 },
+  { name: 'Kanha', age: 31 },
+  { age: 34 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({'age':1, 'name':1})
+[
+  { name: 'Harshil', age: 20 },
+  { name: 'Insha', age: 20 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Pooja Kumari', age: 20 },
+  { name: 'Ashutosh', age: 22 },
+  { age: 31 },
+  { name: 'Ashitabh', age: 31 },
+  { name: 'Kanha', age: 31 },
+  { age: 34 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({age:1, name:1})
+[
+  { name: 'Harshil', age: 20 },
+  { name: 'Insha', age: 20 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Pooja Kumari', age: 20 },
+  { name: 'Ashutosh', age: 22 },
+  { age: 31 },
+  { name: 'Ashitabh', age: 31 },
+  { name: 'Kanha', age: 31 },
+  { age: 34 }
+]
+CSE&DS> db.student.find({}, {name:1, age:1, _id:0}).sort({ name:1, age:-1})
+[
+  { age: 34 },
+  { age: 31 },
+  { name: 'Ashitabh', age: 31 },
+  { name: 'Ashutosh', age: 22 },
+  { name: 'Harshil', age: 20 },
+  { name: 'Insha', age: 20 },
+  { name: 'Kanha', age: 31 },
+  { name: 'Kashish', age: 20 },
+  { name: 'Krishna', age: 20 },
+  { name: 'Narayan Gaur', age: 20 },
+  { name: 'Pooja Kumari', age: 20 }
+]
+CSE&DS> db.student.find({}, {_id:0}).sort({ name:1, age:-1})
+[
+  { branch: 'AI', city: 'Delhi', age: 34 },
+  { age: 31, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' }
+]
+CSE&DS> db.student.find({branch:'AI'}, {_id:0}).sort({ name:1, age:-1})
+[
+  { branch: 'AI', city: 'Delhi', age: 34 },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' }
+]
+CSE&DS> db.student.find({branch:'DS'}, {_id:0}).sort({ name:1, age:-1})
+[
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' }
+]
+CSE&DS> db.student.find({branch:'CSE'}, {_id:0}).sort({ name:1, age:-1})
+[
+  { age: 31, branch: 'CSE' },
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Krishna', age: 20, branch: 'CSE' }
+]
+CSE&DS> db.student.find({}, {_id:0}).sort({ branch:1, age:-1})
+[
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' },
+  { branch: 'AI', city: 'Delhi', age: 34 },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { age: 31, branch: 'CSE' },
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Insha', age: 20, branch: 'IT' }
+]
+CSE&DS> db.student.find({}, {_id:0, name:0, city:0}).sort({ branch:1, age:-1})
+[
+  { age: 20 },
+  { branch: 'AI', age: 34 },
+  { age: 20, branch: 'AI' },
+  { age: 31, branch: 'CSE' },
+  { age: 20, branch: 'CSE' },
+  { age: 20, branch: 'CSE' },
+  { age: 20, branch: 'CSE' },
+  { age: 31, branch: 'DS' },
+  { age: 31, branch: 'DS' },
+  { branch: 'DS', age: 22 },
+  { age: 20, branch: 'IT' }
+]
+CSE&DS> db.student.find({}, {_id:0, name:0, city:0}).sort({ branch:1, age:1})
+[
+  { age: 20 },
+  { age: 20, branch: 'AI' },
+  { branch: 'AI', age: 34 },
+  { age: 20, branch: 'CSE' },
+  { age: 20, branch: 'CSE' },
+  { age: 20, branch: 'CSE' },
+  { age: 31, branch: 'CSE' },
+  { branch: 'DS', age: 22 },
+  { age: 31, branch: 'DS' },
+  { age: 31, branch: 'DS' },
+  { age: 20, branch: 'IT' }
+]
+CSE&DS> db.student.find({}, {_id:0, age:0, city:0}).sort({ branch:1, name:1})
+[
+  { name: 'Narayan Gaur' },
+  { branch: 'AI' },
+  { name: 'Pooja Kumari', branch: 'AI' },
+  { branch: 'CSE' },
+  { name: 'Harshil', branch: 'CSE' },
+  { name: 'Kashish', branch: 'CSE' },
+  { name: 'Krishna', branch: 'CSE' },
+  { name: 'Ashitabh', branch: 'DS' },
+  { name: 'Ashutosh', branch: 'DS' },
+  { name: 'Kanha', branch: 'DS' },
+  { name: 'Insha', branch: 'IT' }
+]
+CSE&DS> db.student.find({}, {_id:0, age:0, city:0}).sort({ branch:1, name:-1})
+[
+  { name: 'Narayan Gaur' },
+  { name: 'Pooja Kumari', branch: 'AI' },
+  { branch: 'AI' },
+  { name: 'Krishna', branch: 'CSE' },
+  { name: 'Kashish', branch: 'CSE' },
+  { name: 'Harshil', branch: 'CSE' },
+  { branch: 'CSE' },
+  { name: 'Kanha', branch: 'DS' },
+  { name: 'Ashutosh', branch: 'DS' },
+  { name: 'Ashitabh', branch: 'DS' },
+  { name: 'Insha', branch: 'IT' }
+]
+CSE&DS> db.student.find({}, {_id:0, age:0, city:0}).sort({ branch:-1, name:-1})
+[
+  { name: 'Insha', branch: 'IT' },
+  { name: 'Kanha', branch: 'DS' },
+  { name: 'Ashutosh', branch: 'DS' },
+  { name: 'Ashitabh', branch: 'DS' },
+  { name: 'Krishna', branch: 'CSE' },
+  { name: 'Kashish', branch: 'CSE' },
+  { name: 'Harshil', branch: 'CSE' },
+  { branch: 'CSE' },
+  { name: 'Pooja Kumari', branch: 'AI' },
+  { branch: 'AI' },
+  { name: 'Narayan Gaur' }
+]
+CSE&DS> db.student.find({branch:'CSE'}, {_id:0, age:0, city:0}).sort({ branch:-1, name:-1})
+[
+  { name: 'Krishna', branch: 'CSE' },
+  { name: 'Kashish', branch: 'CSE' },
+  { name: 'Harshil', branch: 'CSE' },
+  { branch: 'CSE' }
+]
+CSE&DS> db.student.find({branch:'CSE'}, {_id:0, age:0}).sort({ city:-1, name:-1})
+[
+  { name: 'Krishna', branch: 'CSE' },
+  { name: 'Kashish', branch: 'CSE' },
+  { name: 'Harshil', branch: 'CSE' },
+  { branch: 'CSE' }
+]
+CSE&DS> db.student.find({}, {_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { age: 31, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { branch: 'AI', city: 'Delhi', age: 34 },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' }
+]
+CSE&DS> db.student.find({branch:'AI'}, {_id:0, age:0}).sort({ city:-1, name:-1})
+[
+  { name: 'Pooja Kumari', branch: 'AI', city: 'Ghaziabad' },
+  { branch: 'AI', city: 'Delhi' }
+]
+CSE&DS> db.student.find({branch:'AI'}, {_id:0, age:0}).sort({ city:1, name:-1})
+[
+  { branch: 'AI', city: 'Delhi' },
+  { name: 'Pooja Kumari', branch: 'AI', city: 'Ghaziabad' }
+]
+CSE&DS> show collections
+course
+product
+student
+CSE&DS> db.course.find()
+
+CSE&DS> db.employees.insertMany([
+| {
+|  name: 'Harsha', city:'Delhi', hobby: ['Reading', 'Dancing']
+| },
+| {
+|  name: 'Harsh', city:'Goa', hobby: ['Singing', 'Dancing', 'Cricket']
+| },
+| {
+|  name: 'Kartikay', city:'Lucknow', hobby: ['Dancing', 'Coding', 'Driving']
+| },
+| {
+|  name: 'Narayan', city:'Delhi', hobby: ['Reading', 'Hockey','Dancing']
+| },
+| {
+|  name: 'Pooja', city:'Noida', hobby: ['Singing', 'Hockey','Painting']
+| },
+| {
+|  name: 'Neha', city:'Gorakhpur', hobby: ['Dancing', 'Chess', 'Reading']
+| },
+| ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a8551346afc187a282937f2'),
+    '1': ObjectId('6a8551346afc187a282937f3'),
+    '2': ObjectId('6a8551346afc187a282937f4'),
+    '3': ObjectId('6a8551346afc187a282937f5'),
+    '4': ObjectId('6a8551346afc187a282937f6'),
+    '5': ObjectId('6a8551346afc187a282937f7')
+  }
+}
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> db.employees.insertMany([
+| {
+CSE&DS> b.employees.insertMany([
+| {
+CSE&DS> show collections
+course
+employees
+product
+student
+CSE&DS> db.employees.find()
+[
+  {
+    _id: ObjectId('6a8551346afc187a282937f2'),
+    name: 'Harsha',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Dancing' ]
+  },
+  {
+    _id: ObjectId('6a8551346afc187a282937f3'),
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    _id: ObjectId('6a8551346afc187a282937f4'),
+    name: 'Kartikay',
+    city: 'Lucknow',
+    hobby: [ 'Dancing', 'Coding', 'Driving' ]
+  },
+  {
+    _id: ObjectId('6a8551346afc187a282937f5'),
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    _id: ObjectId('6a8551346afc187a282937f6'),
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  },
+  {
+    _id: ObjectId('6a8551346afc187a282937f7'),
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({},{_id:0})
+[
+  { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] },
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    name: 'Kartikay',
+    city: 'Lucknow',
+    hobby: [ 'Dancing', 'Coding', 'Driving' ]
+  },
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  },
+  {
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({hobby: 'Dancing'},{_id:0})
+[
+  { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] },
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    name: 'Kartikay',
+    city: 'Lucknow',
+    hobby: [ 'Dancing', 'Coding', 'Driving' ]
+  },
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({},{_id:0}).count()
+6
+CSE&DS> db.employees.find({hobby: 'Dancing'},{_id:0}).count()
+5
+CSE&DS> db.employees.find({hobby: 'Singing'},{_id:0}).count()
+2
+CSE&DS> db.employees.find({hobby: 'Singing'},{_id:0})
+[
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  }
+]
+CSE&DS> db.employees.find({hobby: ['Singing']},{_id:0})
+
+CSE&DS> db.employees.find({hobby: ['Reading']},{_id:0})
+
+CSE&DS> db.employees.find({hobby: ['Reading', 'Dancing']},{_id:0})
+[ { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] } ]
+CSE&DS> db.employees.find({hobby: ['Dancing', 'Reading']},{_id:0})
+
+CSE&DS> db.employees.find({hobby: ['Dancing', 'Reading']},{_id:0})
+
+CSE&DS> db.employees.find({hobby: { $all: ['Dancing', 'Reading'] } },{_id:0})
+[
+  { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] },
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({hobby: { $all: ['Singing'] } },{_id:0})
+[
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  }
+]
+CSE&DS> db.employees.find({hobby: { $all: ['Hockey'] } },{_id:0})
+[
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  }
+]
+CSE&DS> db.students.insertMany( [
+|    { "_id" : 1, "grades" : [ 85, 82, 80 ] },
+|    { "_id" : 2, "grades" : [ 88, 90, 92 ] },
+|    { "_id" : 3, "grades" : [ 85, 100, 90 ] }
+| ] )
+|
+{ acknowledged: true, insertedIds: { '0': 1, '1': 2, '2': 3 } }
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 85, 82, 80 ] },
+  { _id: 2, grades: [ 88, 90, 92 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.students.find({grades: {$gt: 82, $lt: 90}})
+[
+  { _id: 1, grades: [ 85, 82, 80 ] },
+  { _id: 2, grades: [ 88, 90, 92 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.students.find({grades: {$gt: 82, $lt:87}})
+[
+  { _id: 1, grades: [ 85, 82, 80 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.students.find({grades: {$gt: 87}})
+[
+  { _id: 2, grades: [ 88, 90, 92 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.employees.find({},{_id:0})
+[
+  { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] },
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    name: 'Kartikay',
+    city: 'Lucknow',
+    hobby: [ 'Dancing', 'Coding', 'Driving' ]
+  },
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  },
+  {
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({hobby.1: {$eq: 'Reading'}},{_id:0})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:24)
+
+> 1 | db.employees.find({hobby.1: {$eq: 'Reading'}},{_id:0})
+    |                         ^
+  2 |
+
+CSE&DS> db.employees.find({"hobby.1": {$eq: 'Reading'}},{_id:0})
+
+CSE&DS> db.employees.find({"hobby.0": {$eq: 'Reading'}},{_id:0})
+[
+  { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] },
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  }
+]
+CSE&DS> db.employees.find({"hobby.2": {$eq: 'Reading'}},{_id:0})
+[
+  {
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({"hobby.1": {$eq: 'Dancing'}},{_id:0})
+[
+  { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] },
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  }
+]
+CSE&DS> db.employees.find({hobby: { $size: 2 }},{_id:0})
+[ { name: 'Harsha', city: 'Delhi', hobby: [ 'Reading', 'Dancing' ] } ]
+CSE&DS> db.employees.find({hobby: { $size: 3 }},{_id:0})
+[
+  {
+    name: 'Harsh',
+    city: 'Goa',
+    hobby: [ 'Singing', 'Dancing', 'Cricket' ]
+  },
+  {
+    name: 'Kartikay',
+    city: 'Lucknow',
+    hobby: [ 'Dancing', 'Coding', 'Driving' ]
+  },
+  {
+    name: 'Narayan',
+    city: 'Delhi',
+    hobby: [ 'Reading', 'Hockey', 'Dancing' ]
+  },
+  {
+    name: 'Pooja',
+    city: 'Noida',
+    hobby: [ 'Singing', 'Hockey', 'Painting' ]
+  },
+  {
+    name: 'Neha',
+    city: 'Gorakhpur',
+    hobby: [ 'Dancing', 'Chess', 'Reading' ]
+  }
+]
+CSE&DS> db.employees.find({hobby: { $size: 3 }},{_id:0}).count()
+5
+CSE&DS> db.employees.find({hobby: { $size: 1 }},{_id:0})
+
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 85, 82, 80 ] },
+  { _id: 2, grades: [ 88, 90, 92 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.students.updateOne({_id: 1, grades: 80},
+| {$set: { 'grades.$': 83}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 85, 82, 83 ] },
+  { _id: 2, grades: [ 88, 90, 92 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.students.updateOne({ _id: 1, grades: 82 }, { $set: { 'grades.$[]': 87 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 87, 87, 87 ] },
+  { _id: 2, grades: [ 88, 90, 92 ] },
+  { _id: 3, grades: [ 85, 100, 90 ] }
+]
+CSE&DS> db.students.updateMany({}, { $inc: { 'grades.$[]': 5 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 92, 92, 92 ] },
+  { _id: 2, grades: [ 93, 95, 97 ] },
+  { _id: 3, grades: [ 90, 105, 95 ] }
+]
+CSE&DS>
