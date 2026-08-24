@@ -1,0 +1,971 @@
+Microsoft Windows [Version 10.0.26200.9168]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\dell>mongosh
+Current Mongosh Log ID: 6a8be0e29d425eef96c0848f
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.3.7
+Using Mongosh:          2.9.2
+mongosh 2.10.0 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-08-13T18:17:34.641+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use dbs
+switched to db dbs
+dbs> show dbs
+AI&IT   268.00 KiB
+CSE&DS  232.00 KiB
+admin    40.00 KiB
+config   36.00 KiB
+local    68.00 KiB
+dbs> use CSE&DS
+switched to db CSE&DS
+CSE&DS> show collections
+course
+employees
+product
+student
+students
+CSE&DS> use AI&IT
+switched to db AI&IT
+AI&IT> show collections
+employees
+inventory
+product
+student
+students
+AI&IT> db.employees.find({},{_id:0})
+[
+  { empName: 'Dev Ranjan', empId: 102, empAge: 22, empCompany: 'XYZ' },
+  { empName: 'Riddhi', empId: 203, empAge: 25, empCompany: 'ABT' },
+  { empName: 'Ravi', empId: 201, empAge: 26 },
+  { empName: 'Aviral Sharma', empId: 223, empCompany: 'ABT' },
+  { empName: 'Aditya', empAge: 19, empCompany: 'ABT' },
+  { empName: 'Himanshi', empId: 276, empAge: 22, empCompany: 'HCL' },
+  { empId: 290, empAge: 29, empCompany: 'TVB' },
+  { empId: 395, empCompany: 'WTU Cop' },
+  { empName: 'Pratham', empId: 219, empAge: 18, empCompany: 'UEO Tech' },
+  { empName: 'Lokesh', empId: 479, empAge: 22, empCompany: 'YBT' },
+  { empName: 'Piyush', empAge: 45, empCompany: 'YBT', empId: 34 },
+  {
+    empName: 'Alok Srivastava',
+    empAge: 20,
+    empCompany: 'Infosys',
+    empId: 375
+  }
+]
+AI&IT> show collections
+employees
+inventory
+product
+student
+students
+AI&IT> db.student.find({},{_id:0})
+[
+  { name: 'Shreya', city: 'Delhi', skills: [ 'C++', 'Java' ] },
+  { name: 'Shubham', city: 'Noida', skills: [ 'Python', 'JS', 'DSA' ] },
+  { name: 'Aviral', city: 'Ghaziabad', skills: [ 'C', 'Python' ] },
+  { name: 'Tanu', city: 'Delhi', skills: [ 'Python', 'C++', 'Java' ] },
+  { name: 'Manav', city: 'Ghaziabad', skills: [ 'Python', 'JS', 'C++' ] },
+  {
+    name: 'Kush',
+    city: 'Ghaziabad',
+    skills: [ 'Java', 'JS', 'C', 'C++' ]
+  },
+  { name: 'Mayank', city: 'Delhi', skills: [ 'C', 'C++', 'Java', 'JS' ] }
+]
+AI&IT> db.student.find({{skills: 'Java'}},{_id:0})
+Uncaught:
+SyntaxError: Unexpected token (1:17)
+
+> 1 | db.student.find({{skills: 'Java'}},{_id:0})
+    |                  ^
+  2 |
+
+AI&IT> db.student.find({skills: 'Java'},{_id:0})
+[
+  { name: 'Shreya', city: 'Delhi', skills: [ 'C++', 'Java' ] },
+  { name: 'Tanu', city: 'Delhi', skills: [ 'Python', 'C++', 'Java' ] },
+  {
+    name: 'Kush',
+    city: 'Ghaziabad',
+    skills: [ 'Java', 'JS', 'C', 'C++' ]
+  },
+  { name: 'Mayank', city: 'Delhi', skills: [ 'C', 'C++', 'Java', 'JS' ] }
+]
+AI&IT> db.student.find({skills: ['Java']},{_id:0})
+
+AI&IT> db.student.find({skills: ['C++','Java']},{_id:0})
+[ { name: 'Shreya', city: 'Delhi', skills: [ 'C++', 'Java' ] } ]
+AI&IT> db.student.find({skills: ['Java', 'C++']},{_id:0})
+
+AI&IT> db.student.find({skills: {$all: ['Java', 'C++']}},{_id:0})
+[
+  { name: 'Shreya', city: 'Delhi', skills: [ 'C++', 'Java' ] },
+  { name: 'Tanu', city: 'Delhi', skills: [ 'Python', 'C++', 'Java' ] },
+  {
+    name: 'Kush',
+    city: 'Ghaziabad',
+    skills: [ 'Java', 'JS', 'C', 'C++' ]
+  },
+  { name: 'Mayank', city: 'Delhi', skills: [ 'C', 'C++', 'Java', 'JS' ] }
+]
+AI&IT> db.student.find({'skills.0': {$eq: 'Java'}},{_id:0})
+[
+  {
+    name: 'Kush',
+    city: 'Ghaziabad',
+    skills: [ 'Java', 'JS', 'C', 'C++' ]
+  }
+]
+AI&IT> db.student.find({'skills.1': {$eq: 'Java'}},{_id:0})
+[ { name: 'Shreya', city: 'Delhi', skills: [ 'C++', 'Java' ] } ]
+AI&IT> db.student.find({'skills.2': {$eq: 'Java'}},{_id:0})
+[
+  { name: 'Tanu', city: 'Delhi', skills: [ 'Python', 'C++', 'Java' ] },
+  { name: 'Mayank', city: 'Delhi', skills: [ 'C', 'C++', 'Java', 'JS' ] }
+]
+AI&IT> db.student.find({'skills.0': {$eq: 'Python'}},{_id:0})
+[
+  { name: 'Shubham', city: 'Noida', skills: [ 'Python', 'JS', 'DSA' ] },
+  { name: 'Tanu', city: 'Delhi', skills: [ 'Python', 'C++', 'Java' ] },
+  { name: 'Manav', city: 'Ghaziabad', skills: [ 'Python', 'JS', 'C++' ] }
+]
+AI&IT> db.student.find({},{_id:0})
+[
+  { name: 'Shreya', city: 'Delhi', skills: [ 'C++', 'Java' ] },
+  { name: 'Shubham', city: 'Noida', skills: [ 'Python', 'JS', 'DSA' ] },
+  { name: 'Aviral', city: 'Ghaziabad', skills: [ 'C', 'Python' ] },
+  { name: 'Tanu', city: 'Delhi', skills: [ 'Python', 'C++', 'Java' ] },
+  { name: 'Manav', city: 'Ghaziabad', skills: [ 'Python', 'JS', 'C++' ] },
+  {
+    name: 'Kush',
+    city: 'Ghaziabad',
+    skills: [ 'Java', 'JS', 'C', 'C++' ]
+  },
+  { name: 'Mayank', city: 'Delhi', skills: [ 'C', 'C++', 'Java', 'JS' ] }
+]
+AI&IT> use CSE&DS
+switched to db CSE&DS
+CSE&DS> show collections
+course
+employees
+product
+student
+students
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 92, 92, 92 ] },
+  { _id: 2, grades: [ 93, 95, 97 ] },
+  { _id: 3, grades: [ 90, 105, 95 ] }
+]
+CSE&DS> db.students.updateOne({_id: 2, grades: 95},
+| {$set: {'grades.$': 96}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 92, 92, 92 ] },
+  { _id: 2, grades: [ 93, 96, 97 ] },
+  { _id: 3, grades: [ 90, 105, 95 ] }
+]
+CSE&DS> db.students.updateOne({ _id: 2, grades: 96 }, { $set: { 'grades.$[]':90 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.students.find()
+[
+  { _id: 1, grades: [ 92, 92, 92 ] },
+  { _id: 2, grades: [ 90, 90, 90 ] },
+  { _id: 3, grades: [ 90, 105, 95 ] }
+]
+CSE&DS> use alpha
+switched to db alpha
+alpha> use CSE&DS
+switched to db CSE&DS
+CSE&DS> db.alpha.insertOne({_id:1, letters: ['a', 'b']})
+{ acknowledged: true, insertedId: 1 }
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'a', 'b' ] } ]
+CSE&DS> db.alpha.updateOne({_id:1}, {letters: {$addToSet: 'c'}})
+MongoInvalidArgumentError: Update document requires atomic operators
+CSE&DS> db.alpha.updateOne({_id:1}, {$addToSet: {letters: 'c'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'a', 'b', 'c' ] } ]
+CSE&DS> db.alpha.updateOne({_id:1}, {$addToSet: {letters: ['d','e']}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'a', 'b', 'c', [ 'd', 'e' ] ] } ]
+CSE&DS> db.alpha.updateOne({_id:1}, {$addToSet: {letters: { $each: ['c','f'] }}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'a', 'b', 'c', [ 'd', 'e' ], 'f' ] } ]
+CSE&DS> db.alpha.updateOne({_id:1}, {$pop: {letters: -1 }})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'b', 'c', [ 'd', 'e' ], 'f' ] } ]
+CSE&DS> db.alpha.updateOne({_id:1}, {$pop: {letters: 1 }})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.updateOne({_id:1}, {$pop: {letters: 1 }})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'b', 'c' ] } ]
+CSE&DS> db.alpha.updateOne({_id:1}, {$addToSet: {letters: { $each: ['c','d','eCSE&DS> db.alpha.updateOne({_id:1}, {$addToSet: {letters: { $each:
+| ['c','d','e','f'] }}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'b', 'c', 'd', 'e', 'f' ] } ]
+CSE&DS> db.alpha.updateOne({ _id: 1 }, {$pull: { letters: {$in:['c', 'e']}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'b', 'd', 'f' ] } ]
+CSE&DS> db.alpha.updateOne({ _id: 1 }, {$pull: { letters: 'd'}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'b', 'f' ] } ]
+CSE&DS> db.alpha.updateOne({ _id: 1 }, {$push: { letters: 'd'}});
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+CSE&DS> db.alpha.find()
+[ { _id: 1, letters: [ 'b', 'f', 'd' ] } ]
+CSE&DS> db.student.find()
+[
+  {
+    _id: ObjectId('6a69ab026abda3e625db8bfd'),
+    name: 'Harshil',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a7038bdd0d3e639bd7d466c'),
+    name: 'Kashish',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466d'),
+    name: 'Ashutosh',
+    branch: 'DS',
+    age: 22
+  },
+  { _id: ObjectId('6a703b8dd0d3e639bd7d466e'), age: 31, branch: 'CSE' },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d466f'),
+    name: 'Ashitabh',
+    age: 31,
+    branch: 'DS',
+    city: 'Varanasi'
+  },
+  {
+    _id: ObjectId('6a703b8dd0d3e639bd7d4670'),
+    branch: 'AI',
+    city: 'Delhi',
+    age: 34
+  },
+  {
+    _id: ObjectId('6a703d82d0d3e639bd7d4671'),
+    name: 'Pooja Kumari',
+    age: 20,
+    branch: 'AI',
+    city: 'Ghaziabad'
+  },
+  { _id: 21, name: 'Insha', age: 20, branch: 'IT' },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4673'),
+    name: 'Krishna',
+    age: 20,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId('6a704306d0d3e639bd7d4674'),
+    name: 'Kanha',
+    city: 'Ghaziabad',
+    age: 31,
+    branch: 'DS'
+  },
+  {
+    _id: ObjectId('6a7c16b775693a59334a74a0'),
+    name: 'Narayan Gaur',
+    age: 20,
+    city: 'Ghaziabad'
+  }
+]
+CSE&DS> db.student.find({},{_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { age: 31, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { branch: 'AI', city: 'Delhi', age: 34 },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' }
+]
+CSE&DS> db.student.find({name: 'a'},{_id:0})
+
+CSE&DS> db.student.find({name: /a/},{_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' },
+  { name: 'Kanha', city: 'Ghaziabad', age: 31, branch: 'DS' },
+  { name: 'Narayan Gaur', age: 20, city: 'Ghaziabad' }
+]
+CSE&DS> db.student.find({name: /i/},{_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' },
+  { name: 'Krishna', age: 20, branch: 'CSE' }
+]
+CSE&DS> db.student.find({name: /oo/},{_id:0})
+[ { name: 'Pooja Kumari', age: 20, branch: 'AI', city: 'Ghaziabad' } ]
+CSE&DS> db.student.find({name: /sh/},{_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' }
+]
+CSE&DS> db.student.find({name: {$regex: /sh/}},{_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' }
+]
+CSE&DS> db.student.find({name: {$regex: '/sh/'}},{_id:0})
+
+CSE&DS> db.student.find({name: {$regex: /sh/}},{_id:0})
+[
+  { name: 'Harshil', age: 20, branch: 'CSE' },
+  { name: 'Kashish', age: 20, branch: 'CSE' },
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' },
+  { name: 'Insha', age: 20, branch: 'IT' },
+  { name: 'Krishna', age: 20, branch: 'CSE' }
+]
+CSE&DS> db.student.find({name: /na/},{_id:0})
+[ { name: 'Krishna', age: 20, branch: 'CSE' } ]
+CSE&DS> db.student.find({name: /H/},{_id:0})
+[ { name: 'Harshil', age: 20, branch: 'CSE' } ]
+CSE&DS> db.student.find({name: /A/},{_id:0})
+[
+  { name: 'Ashutosh', branch: 'DS', age: 22 },
+  { name: 'Ashitabh', age: 31, branch: 'DS', city: 'Varanasi' }
+]
+CSE&DS> show collection
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argumentfor "show".
+CSE&DS> show collections
+alpha
+course
+employees
+product
+student
+students
+CSE&DS> db.product.find()
+[
+  { _id: ObjectId('6a7c18ceb395c67ec34a0feb'), name: 'p4', price: 120 },
+  { _id: ObjectId('6a7c18ceb395c67ec34a0fec'), name: 'p5', price: 140 }
+]
+CSE&DS> for(let i=1; i<=5000; i++)
+|  db.products.insertOne({ name: 'product'+i,
+| price: i*10})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6a8bf2c99d425eef96c09817')
+}
+CSE&DS> db.products.find()
+[
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08490'),
+    name: 'product1',
+    price: 10
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08491'),
+    name: 'product2',
+    price: 20
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08492'),
+    name: 'product3',
+    price: 30
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08493'),
+    name: 'product4',
+    price: 40
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08494'),
+    name: 'product5',
+    price: 50
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08495'),
+    name: 'product6',
+    price: 60
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08496'),
+    name: 'product7',
+    price: 70
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08497'),
+    name: 'product8',
+    price: 80
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08498'),
+    name: 'product9',
+    price: 90
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c08499'),
+    name: 'product10',
+    price: 100
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c0849a'),
+    name: 'product11',
+    price: 110
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c0849b'),
+    name: 'product12',
+    price: 120
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c0849c'),
+    name: 'product13',
+    price: 130
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c0849d'),
+    name: 'product14',
+    price: 140
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c0849e'),
+    name: 'product15',
+    price: 150
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c0849f'),
+    name: 'product16',
+    price: 160
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a0'),
+    name: 'product17',
+    price: 170
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a1'),
+    name: 'product18',
+    price: 180
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a2'),
+    name: 'product19',
+    price: 190
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a3'),
+    name: 'product20',
+    price: 200
+  }
+]
+Type "it" for more
+CSE&DS> it
+[
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a4'),
+    name: 'product21',
+    price: 210
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a5'),
+    name: 'product22',
+    price: 220
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a6'),
+    name: 'product23',
+    price: 230
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a7'),
+    name: 'product24',
+    price: 240
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a8'),
+    name: 'product25',
+    price: 250
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084a9'),
+    name: 'product26',
+    price: 260
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084aa'),
+    name: 'product27',
+    price: 270
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084ab'),
+    name: 'product28',
+    price: 280
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084ac'),
+    name: 'product29',
+    price: 290
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084ad'),
+    name: 'product30',
+    price: 300
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084ae'),
+    name: 'product31',
+    price: 310
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084af'),
+    name: 'product32',
+    price: 320
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b0'),
+    name: 'product33',
+    price: 330
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b1'),
+    name: 'product34',
+    price: 340
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b2'),
+    name: 'product35',
+    price: 350
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b3'),
+    name: 'product36',
+    price: 360
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b4'),
+    name: 'product37',
+    price: 370
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b5'),
+    name: 'product38',
+    price: 380
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b6'),
+    name: 'product39',
+    price: 390
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b7'),
+    name: 'product40',
+    price: 400
+  }
+]
+Type "it" for more
+CSE&DS> it
+[
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b8'),
+    name: 'product41',
+    price: 410
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084b9'),
+    name: 'product42',
+    price: 420
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084ba'),
+    name: 'product43',
+    price: 430
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084bb'),
+    name: 'product44',
+    price: 440
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084bc'),
+    name: 'product45',
+    price: 450
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084bd'),
+    name: 'product46',
+    price: 460
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084be'),
+    name: 'product47',
+    price: 470
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084bf'),
+    name: 'product48',
+    price: 480
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c0'),
+    name: 'product49',
+    price: 490
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c1'),
+    name: 'product50',
+    price: 500
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c2'),
+    name: 'product51',
+    price: 510
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c3'),
+    name: 'product52',
+    price: 520
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c4'),
+    name: 'product53',
+    price: 530
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c5'),
+    name: 'product54',
+    price: 540
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c6'),
+    name: 'product55',
+    price: 550
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c7'),
+    name: 'product56',
+    price: 560
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c8'),
+    name: 'product57',
+    price: 570
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084c9'),
+    name: 'product58',
+    price: 580
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084ca'),
+    name: 'product59',
+    price: 590
+  },
+  {
+    _id: ObjectId('6a8bf2c49d425eef96c084cb'),
+    name: 'product60',
+    price: 600
+  }
+]
+Type "it" for more
+CSE&DS> db.products.find({name: 'product2300'}).explain('ExecutionStats')
+MongoServerError[BadValue]: Enumeration value 'ExecutionStats' for field 'explain.verbosity' is not a valid value.
+CSE&DS> db.products.find({name: 'product2300'}).explain('executionStats')
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'CSE&DS.products',
+    parsedQuery: { name: { '$eq': 'product2300' } },
+    indexFilterSet: false,
+    queryHash: 'F4DDDCDC',
+    planCacheShapeHash: 'F4DDDCDC',
+    planCacheKey: 'E45FBFA1',
+    optimizationTimeMillis: 2,
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    prunedSimilarIndexes: false,
+    winningPlan: {
+      isCached: false,
+      stage: 'COLLSCAN',
+      filter: { name: { '$eq': 'product2300' } },
+      nss: 'CSE&DS.products',
+      direction: 'forward'
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 1,
+    executionTimeMillis: 11,
+    totalKeysExamined: 0,
+    totalDocsExamined: 5000,
+    executionStages: {
+      isCached: false,
+      stage: 'COLLSCAN',
+      filter: { name: { '$eq': 'product2300' } },
+      nReturned: 1,
+      executionTimeMillisEstimate: 2,
+      works: 5001,
+      advanced: 1,
+      needTime: 4999,
+      needYield: 0,
+      saveState: 0,
+      restoreState: 0,
+      isEOF: 1,
+      nss: 'CSE&DS.products',
+      direction: 'forward',
+      docsExamined: 5000
+    }
+  },
+  queryShapeHash: '9069287060B137DD788C923FB756A1456071972F698E988BD599984B79693FEB',
+  command: {
+    find: 'products',
+    filter: { name: 'product2300' },
+    '$db': 'CSE&DS'
+  },
+  serverInfo: {
+    host: 'DESKTOP-CTKOBL4',
+    port: 27017,
+    version: '8.3.7',
+    gitVersion: '34eee04f34989abb7a3d91447976f033f4f74af2'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalQueryFrameworkControl: 'trySbeRestricted',
+    internalQueryPlannerIgnoreIndexWithCollationForRegex: 1
+  },
+  ok: 1
+}
+CSE&DS> db.products.createIndex({name: 1})
+name_1
+CSE&DS> db.products.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { name: 1 }, name: 'name_1' }
+]
+CSE&DS> db.products.find({name: 'product2300'}).explain('executionStats')
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'CSE&DS.products',
+    parsedQuery: { name: { '$eq': 'product2300' } },
+    indexFilterSet: false,
+    queryHash: 'F4DDDCDC',
+    planCacheShapeHash: 'F4DDDCDC',
+    planCacheKey: '34C29116',
+    optimizationTimeMillis: 0,
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    prunedSimilarIndexes: false,
+    winningPlan: {
+      isCached: false,
+      stage: 'FETCH',
+      nss: 'CSE&DS.products',
+      inputStage: {
+        stage: 'IXSCAN',
+        nss: 'CSE&DS.products',
+        keyPattern: { name: 1 },
+        indexName: 'name_1',
+        isMultiKey: false,
+        multiKeyPaths: { name: [] },
+        isUnique: false,
+        isSparse: false,
+        isPartial: false,
+        indexVersion: 2,
+        direction: 'forward',
+        indexBounds: { name: [ '["product2300", "product2300"]' ] }
+      }
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 1,
+    executionTimeMillis: 33,
+    totalKeysExamined: 1,
+    totalDocsExamined: 1,
+    executionStages: {
+      isCached: false,
+      stage: 'FETCH',
+      nReturned: 1,
+      executionTimeMillisEstimate: 34,
+      works: 2,
+      advanced: 1,
+      needTime: 0,
+      needYield: 0,
+      saveState: 1,
+      restoreState: 1,
+      isEOF: 1,
+      nss: 'CSE&DS.products',
+      docsExamined: 1,
+      alreadyHasObj: 0,
+      inputStage: {
+        stage: 'IXSCAN',
+        nReturned: 1,
+        executionTimeMillisEstimate: 34,
+        works: 2,
+        advanced: 1,
+        needTime: 0,
+        needYield: 0,
+        saveState: 1,
+        restoreState: 1,
+        isEOF: 1,
+        nss: 'CSE&DS.products',
+        keyPattern: { name: 1 },
+        indexName: 'name_1',
+        isMultiKey: false,
+        multiKeyPaths: { name: [] },
+        isUnique: false,
+        isSparse: false,
+        isPartial: false,
+        indexVersion: 2,
+        direction: 'forward',
+        indexBounds: { name: [ '["product2300", "product2300"]' ] },
+        keysExamined: 1,
+        seeks: 1,
+        dupsTested: 0,
+        dupsDropped: 0,
+        peakTrackedMemBytes: 0
+      }
+    }
+  },
+  queryShapeHash: '9069287060B137DD788C923FB756A1456071972F698E988BD599984B79693FEB',
+  command: {
+    find: 'products',
+    filter: { name: 'product2300' },
+    '$db': 'CSE&DS'
+  },
+  serverInfo: {
+    host: 'DESKTOP-CTKOBL4',
+    port: 27017,
+    version: '8.3.7',
+    gitVersion: '34eee04f34989abb7a3d91447976f033f4f74af2'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalQueryFrameworkControl: 'trySbeRestricted',
+    internalQueryPlannerIgnoreIndexWithCollationForRegex: 1
+  },
+  ok: 1
+}
+CSE&DS>
