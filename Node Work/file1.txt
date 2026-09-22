@@ -1,0 +1,1 @@
+This is text file. We are fetching this data in training session.
