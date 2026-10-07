@@ -1,1 +1,1 @@
-Data Submitted successfully..
+{"userName":"Deepak","email":"deepak@gmail.com","pass":"1234","gender":"Male"}

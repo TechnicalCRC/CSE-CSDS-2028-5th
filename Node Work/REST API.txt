@@ -1,0 +1,8 @@
+REST API
+
+CRUD
+
+C - POST
+R - GET
+U - PATCH
+D - DELETE
