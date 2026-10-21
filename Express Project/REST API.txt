@@ -1,0 +1,24 @@
+CRUD       - REST API  - PostMan - for frontend data
+
+C - create - POST
+R - read   - GET
+U - update - PATCH
+D - delete - DELETE
+
+config - package.json
+npm init -y
+
+npm i express
+
+folder - src
+file - src/app.js
+
+root file - server.js
+req(src/app)
+
+{
+  "prod_id" : "p101",
+  "prod_name" : "Laptop",
+  "prod_price" : "25000",
+  "prod_brand" : "HP"   
+}

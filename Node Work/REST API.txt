@@ -1,8 +1,7 @@
-REST API
+CRUD       - REST API
 
-CRUD
 
-C - POST
-R - GET
-U - PATCH
-D - DELETE
+C - create - POST
+R - read   - GET
+U - update - PATCH
+D - delete - DELETE
